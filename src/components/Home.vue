@@ -5,7 +5,12 @@
             <Header/>
         </template>
         <template #resume>
-            <Resume/>
+            <Resume
+                :totalLabel="'Ahorro total'"
+                :label="label"
+                :total-amount="1000000"
+                :amount="amount"
+            />
         </template>
     </Layout>
 </template>
@@ -20,6 +25,12 @@
             Layout,
             Header,
             Resume
-}
+        },
+        data() {
+            return {
+                amount: null,
+                label: null,
+            }
+        }
     }
 </script>
