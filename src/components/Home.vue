@@ -49,7 +49,7 @@
                         id: 0,
                         title: "Movimiento 1",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: -120,
                     },
                     {
                         id: 1,
@@ -60,7 +60,7 @@
                         id: 2,
                         title: "Movimiento 3",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: 0,
                     },
                     {
                         id: 3,
@@ -72,7 +72,7 @@
                         id: 4,
                         title: "Movimiento 5",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: -183,
                     },
                     {
                         id: 5,
