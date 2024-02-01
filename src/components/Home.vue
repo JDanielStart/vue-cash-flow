@@ -15,13 +15,14 @@
                     <Graphic :amounts="amounts"/>
                 </template>
                 <template #action>
-                    <Action/>
+                    <Action @create="create"/>
                 </template>
             </Resume>
         </template>
         <template #movements>
             <Movements
                 :movements="movements"
+                @remove="remove"
             />
         </template>
     </Layout>
@@ -131,6 +132,15 @@
                     return m.time <= oldDate;
                 })
                 .map(m => m.amount);
+            }
+        },
+        methods: {
+            create(movement) {
+                this.movements.push(movement);
+            },
+            remove(id) {
+                this.movements = this.movements
+                .filter(m => m.id != id);
             }
         }
     }
