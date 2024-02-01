@@ -47,69 +47,90 @@
         data() {
             return {
                 amount: null,
-                amounts: [100, 200, 500, 200, -400, -600, -300, 0, 300, 500],
                 label: null,
                 movements: [
                     {
                         id: 0,
                         title: "Movimiento 1",
                         description: "Lorem ipsum dolor sit",
-                        amount: -120,
+                        amount: 300,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 1,
                         title: "Movimiento 2",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: 0,
+                        time: new Date("6/12/2023")
                     },{
                         id: 2,
                         title: "Movimiento 3",
                         description: "Lorem ipsum dolor sit",
                         amount: 0,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 3,
                         title: "Movimiento 4",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: -400,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 4,
                         title: "Movimiento 5",
                         description: "Lorem ipsum dolor sit",
-                        amount: -183,
+                        amount: -600,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 5,
                         title: "Movimiento 6",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: -380,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 6,
                         title: "Movimiento 7",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: 0,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 7,
                         title: "Movimiento 8",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: 300,
+                        time: new Date("6/12/2023")
                     },
                     {
                         id: 8,
                         title: "Movimiento 9",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
+                        amount: 500,
+                        time: new Date("6/12/2023")
                     },
                     {
-                        id: 9,
-                        title: "Movimiento 10",
+                        id: 8,
+                        title: "Movimiento 9",
                         description: "Lorem ipsum dolor sit",
-                        amount: 1000,
-                    }
+                        amount: 500,
+                        time: new Date("6/12/2023")
+                    },
                 ]
+            }
+        },
+        computed: {
+            amounts() {
+                return this.movements
+                .filter(m => {
+                    const today = new Date();
+                    const oldDate = today.setDate(today.getDay() - 30);
+
+                    return m.time <= oldDate;
+                })
+                .map(m => m.amount);
             }
         }
     }
