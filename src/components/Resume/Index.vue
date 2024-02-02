@@ -1,8 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <main>
-        <p>{{ labelVisual }}</p>
-        <h1>{{ amountCurrency }}</h1>
+        <p >{{ labelVisual }}</p>
+        <h1 :class="{
+            'red' : isNegative,
+            'green' : !isNegative
+        }">{{ amountCurrency }}</h1>
         <div class="graphic">
             <slot name="graphic"></slot>
         </div>
@@ -46,6 +49,9 @@
             amountCurrency() {
                 return currencyFormater.format(this.amountVisual);
                 
+            },
+            isNegative() {
+                return this.totalAmount < 0;
             }
         }
     }
@@ -75,5 +81,11 @@
         width: 100%;
         padding: 48px 24px;
         box-sizing: border-box;
+    }
+    .red {
+        color: red;
+    }
+    .green {
+        color: green;
     }
 </style>

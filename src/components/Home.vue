@@ -8,7 +8,7 @@
             <Resume
                 :totalLabel="'Ahorro total'"
                 :label="label"
-                :total-amount="1000000"
+                :total-amount="totalAmount"
                 :amount="amount"
             >
                 <template #graphic>
@@ -49,77 +49,7 @@
             return {
                 amount: null,
                 label: null,
-                movements: [
-                    {
-                        id: 0,
-                        title: "Movimiento 1",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 300,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 1,
-                        title: "Movimiento 2",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 0,
-                        time: new Date("6/12/2023")
-                    },{
-                        id: 2,
-                        title: "Movimiento 3",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 0,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 3,
-                        title: "Movimiento 4",
-                        description: "Lorem ipsum dolor sit",
-                        amount: -400,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 4,
-                        title: "Movimiento 5",
-                        description: "Lorem ipsum dolor sit",
-                        amount: -600,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 5,
-                        title: "Movimiento 6",
-                        description: "Lorem ipsum dolor sit",
-                        amount: -380,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 6,
-                        title: "Movimiento 7",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 0,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 7,
-                        title: "Movimiento 8",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 300,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 8,
-                        title: "Movimiento 9",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 500,
-                        time: new Date("6/12/2023")
-                    },
-                    {
-                        id: 8,
-                        title: "Movimiento 9",
-                        description: "Lorem ipsum dolor sit",
-                        amount: 500,
-                        time: new Date("6/12/2023")
-                    },
-                ]
+                movements: []
             }
         },
         computed: {
@@ -129,18 +59,37 @@
                     const today = new Date();
                     const oldDate = today.setDate(today.getDay() - 30);
 
-                    return m.time <= oldDate;
+                    return m.time >= oldDate;
                 })
                 .map(m => m.amount);
+            },
+            totalAmount() {
+                return this.movements.reduce((suma, m) => {
+                    return suma + m.amount;
+                }, 0);
+            }
+        },
+        mounted() {
+            const movements = JSON.parse(localStorage.getItem("movements"));
+
+            if (Array.isArray(movements)) {
+                this.movements = movements?.map(m => {
+                    return { ...m, time: new Date(m.time) };
+                });
             }
         },
         methods: {
             create(movement) {
                 this.movements.push(movement);
+                this.save();
             },
             remove(id) {
                 this.movements = this.movements
                 .filter(m => m.id != id);
+                this.save();
+            },
+            save() {
+                localStorage.setItem("movements", JSON.stringify(this.movements));
             }
         }
     }
