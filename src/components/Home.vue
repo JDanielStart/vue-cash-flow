@@ -12,7 +12,7 @@
                 :amount="amount"
             >
                 <template #graphic>
-                    <Graphic :amounts="amounts"/>
+                    <Graphic :amounts="amounts" @select="select"/>
                 </template>
                 <template #action>
                     <Action @create="create"/>
@@ -59,7 +59,7 @@
                     const today = new Date();
                     const oldDate = today.setDate(today.getDay() - 30);
 
-                    return m.time >= oldDate;
+                    return m.time > oldDate;
                 })
                 .map(m => m.amount);
             },
@@ -90,6 +90,9 @@
             },
             save() {
                 localStorage.setItem("movements", JSON.stringify(this.movements));
+            },
+            select(el) {
+                this.amount = el;
             }
         }
     }
